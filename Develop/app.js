@@ -10,6 +10,113 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employees = [];
+
+const employeeQuestions = [
+  {
+    type: "input",
+    message: "What is your name?",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "What is your id?",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "What is your email?",
+    name: "email",
+  },
+  {
+    type: "list",
+    message: "Choose the title most specific to your role?",
+    name: "role",
+    choices: ["Engineer", "Intern", "Manager"],
+  },
+];
+
+function createEngineer(employeeAnswers) {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your github username?",
+        name: "github",
+      },
+    ])
+    .then((answers) => {
+      const employee = new Engineer(
+        employeeAnswers.name,
+        employeeAnswers.id,
+        employeeAnswers.email,
+        answers.github
+      );
+      employees.push(employee);
+      //employees.push(employee);
+      start();
+    });
+}
+function createIntern(employeeAnswers) {
+  // ask user for their github username
+  // employees.push (new Engineer(answer.name, answer,id, answers.email, answers2.github))
+  //const employee = new Employee(answers.name, answers.id, answers.email);
+  //employees.push(employee);
+  start();
+}
+function createManager(employeeAnswers) {
+  // ask user for their github username
+  // employees.push (new Engineer(answer.name, answer,id, answers.email, answers2.github))
+  //const employee = new Employee(answers.name, answers.id, answers.email);
+  //employees.push(employee);
+  start();
+}
+
+function createTeam() {
+  inquirer.prompt(employeeQuestions).then((answers) => {
+    //if answers.role ==== Employee then create new Employee using Employee Class?
+    if (answers.role === "Engineer") {
+      createEngineer(answers);
+    } else if (answers.role === "Intern") {
+      createIntern(answers);
+    } else {
+      createManager(answers);
+    }
+
+    //console.log(employee);
+    //if answers.role ==== Engineer then create new Engineer using Engineer Class?
+  });
+}
+
+function start() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Would you like to create team or exit?",
+        name: "mainChoice",
+        choices: ["Team", "Exit"],
+      },
+    ])
+    .then((answer) => {
+      if (answer.mainChoice === "Team") {
+        createTeam();
+      } else {
+        console.log(JSON.stringify(employees, null, 2));
+        fs.writeFileSync(outputPath, render(employees), "utf-8");
+      }
+    })
+    .catch((err) => {
+      throw err;
+    });
+  // ask user what would you like to do
+  //   [add to team, exit]
+  // if add to team -> call create team
+  // else exit.
+}
+
+start();
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
