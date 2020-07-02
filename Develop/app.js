@@ -88,7 +88,7 @@ function createManager(employeeAnswers) {
       },
     ])
     .then((answers) => {
-      const employee = new Intern(
+      const employee = new Manager(
         employeeAnswers.name,
         employeeAnswers.id,
         employeeAnswers.email,
