@@ -53,23 +53,51 @@ function createEngineer(employeeAnswers) {
         answers.github
       );
       employees.push(employee);
-      //employees.push(employee);
       start();
     });
 }
 function createIntern(employeeAnswers) {
-  // ask user for their github username
-  // employees.push (new Engineer(answer.name, answer,id, answers.email, answers2.github))
-  //const employee = new Employee(answers.name, answers.id, answers.email);
-  //employees.push(employee);
-  start();
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your name of your school?",
+        name: "school",
+      },
+    ])
+    .then((answers) => {
+      const employee = new Intern(
+        employeeAnswers.name,
+        employeeAnswers.id,
+        employeeAnswers.email,
+        answers.school
+      );
+      employees.push(employee);
+     
+      start();
+    });
+  
 }
 function createManager(employeeAnswers) {
-  // ask user for their github username
-  // employees.push (new Engineer(answer.name, answer,id, answers.email, answers2.github))
-  //const employee = new Employee(answers.name, answers.id, answers.email);
-  //employees.push(employee);
-  start();
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your Office Number?",
+        name: "officeNumber",
+      },
+    ])
+    .then((answers) => {
+      const employee = new Intern(
+        employeeAnswers.name,
+        employeeAnswers.id,
+        employeeAnswers.email,
+        answers.officeNumber
+      );
+      employees.push(employee);
+     
+      start();
+    });
 }
 
 function createTeam() {
