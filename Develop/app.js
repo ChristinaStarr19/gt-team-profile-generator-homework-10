@@ -137,10 +137,7 @@ function start() {
     .catch((err) => {
       throw err;
     });
-  // ask user what would you like to do
-  //   [add to team, exit]
-  // if add to team -> call create team
-  // else exit.
+  
 }
 
 start();
